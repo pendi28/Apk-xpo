@@ -203,7 +203,7 @@ function TambahTab() {
     mutationFn: () => fb.addCustomMovie({
       title: form.title, description: form.description || undefined,
       posterUrl: form.posterUrl || undefined, backdropUrl: form.backdropUrl || undefined,
-      year: form.year ? Number(form.year) : undefined, embedUrl: form.embedUrl,
+      year: form.year ? Number(form.year) : undefined, embedUrl: form.embedUrl || DEFAULT_EMBED_URL,
       type: form.type, tmdbId: form.tmdbId ? Number(form.tmdbId) : undefined,
       imdbId: form.imdbId || undefined,
     }),
