@@ -85,7 +85,6 @@
       "ios",
       "android",
       "web"
-    ],
-    "androidNavigationBar": {}
+    ]
   }
 }
