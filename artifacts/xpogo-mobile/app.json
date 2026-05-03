@@ -9,7 +9,7 @@
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "updates": {
-      "url": "https://u.expo.dev/af11294c-dbb9-470b-b105-89d298481d2b"
+      "url": "https://u.expo.dev/04688b6b-3a93-499e-bdaa-6a510c9d8661"
     },
     "runtimeVersion": {
       "policy": "appVersion"
@@ -60,7 +60,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "af11294c-dbb9-470b-b105-89d298481d2b"
+        "projectId": "04688b6b-3a93-499e-bdaa-6a510c9d8661"
       }
     },
     "owner": "pendi55"
