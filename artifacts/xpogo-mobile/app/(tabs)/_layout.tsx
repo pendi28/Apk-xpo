@@ -1,6 +1,7 @@
 import { Tabs } from "expo-router";
 import { View, Text, StyleSheet, Platform } from "react-native";
 import { BlurView } from "expo-blur";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const BG = "#0d1117";
 const GREEN = "#00c853";
@@ -23,6 +24,7 @@ function TabIcon({ focused, emoji, label }: { focused: boolean; emoji: string; l
 
 export default function TabLayout() {
   const isIOS = Platform.OS === "ios";
+  const insets = useSafeAreaInsets();
 
   return (
     <Tabs
@@ -34,8 +36,8 @@ export default function TabLayout() {
           borderTopWidth: 0,
           borderTopColor: "transparent",
           elevation: 0,
-          height: 64,
-          paddingBottom: 8,
+          height: 64 + insets.bottom,
+          paddingBottom: insets.bottom + 8,
           paddingTop: 8,
         },
         tabBarBackground: () =>
