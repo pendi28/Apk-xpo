@@ -31,8 +31,6 @@ jobs:
 
       - name: Build web app
         run: PORT=3000 BASE_PATH=/ NODE_ENV=production pnpm --filter @workspace/xpogo run build
-        env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
       - name: Deploy ke Firebase Hosting
         run: pnpm --filter @workspace/xpogo run deploy
