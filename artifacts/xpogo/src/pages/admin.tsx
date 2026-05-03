@@ -39,6 +39,7 @@ const BUILTIN = [
   { id: "vidsrc",    name: "VidSrc",                desc: "Server bawaan (vidsrc)",    url: "https://vidsrc.to/embed/{type}/{id}" },
   { id: "vidsrcxyz", name: "VidSrc.xyz",            desc: "Server bawaan (vidsrcxyz)", url: "https://vidsrc.xyz/embed/{type}/{id}" },
 ];
+const DEFAULT_EMBED_URL = BUILTIN[0]?.url ?? "";
 
 type NavTab = "daftar" | "tambah" | "server" | "tema" | "build" | "kontak";
 
@@ -139,7 +140,7 @@ function TambahTab() {
       type:        item.media_type === "tv" ? "series" : "movie",
       tmdbId:      String(item.id),
       imdbId:      item.imdb_id ?? "",
-      embedUrl:    "",
+      embedUrl:    DEFAULT_EMBED_URL,
     });
     setTimeout(() => formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
   };
