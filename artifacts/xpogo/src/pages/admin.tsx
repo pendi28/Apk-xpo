@@ -39,7 +39,7 @@ const BUILTIN = [
   { id: "vidsrc",    name: "VidSrc",                desc: "Server bawaan (vidsrc)",    url: "https://vidsrc.to/embed/{type}/{id}" },
   { id: "vidsrcxyz", name: "VidSrc.xyz",            desc: "Server bawaan (vidsrcxyz)", url: "https://vidsrc.xyz/embed/{type}/{id}" },
 ];
-const DEFAULT_EMBED_URL = BUILTIN[0]?.url ?? "";
+const DEFAULT_EMBED_URL = BUILTIN[0]?.url ?? "https://myvercel-player.vercel.app/embed/{type}/{id}";
 
 type NavTab = "daftar" | "tambah" | "server" | "tema" | "build" | "kontak";
 
@@ -203,7 +203,7 @@ function TambahTab() {
     mutationFn: () => fb.addCustomMovie({
       title: form.title, description: form.description || undefined,
       posterUrl: form.posterUrl || undefined, backdropUrl: form.backdropUrl || undefined,
-      year: form.year ? Number(form.year) : undefined, embedUrl: form.embedUrl || DEFAULT_EMBED_URL,
+      year: form.year ? Number(form.year) : undefined, embedUrl: form.embedUrl?.trim() || DEFAULT_EMBED_URL,
       type: form.type, tmdbId: form.tmdbId ? Number(form.tmdbId) : undefined,
       imdbId: form.imdbId || undefined,
     }),
