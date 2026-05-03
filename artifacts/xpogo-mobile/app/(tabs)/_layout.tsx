@@ -3,9 +3,6 @@ import { View, Text, StyleSheet, Platform } from "react-native";
 import { BlurView } from "expo-blur";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const BG = "#0d1117";
-const GREEN = "#00c853";
-
 function TabIcon({ focused, emoji, label }: { focused: boolean; emoji: string; label: string }) {
   if (focused) {
     return (
@@ -41,33 +38,25 @@ export default function TabLayout() {
           paddingTop: 8,
         },
         tabBarBackground: () =>
-          isIOS ? (
-            <BlurView intensity={80} tint="dark" style={StyleSheet.absoluteFill} />
-          ) : null,
+          isIOS ? <BlurView intensity={80} tint="dark" style={StyleSheet.absoluteFill} /> : null,
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} emoji="🎬" label="Film" />
-          ),
+          tabBarIcon: ({ focused }) => <TabIcon focused={focused} emoji="🎬" label="Film" />,
         }}
       />
       <Tabs.Screen
         name="tv"
         options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} emoji="📺" label="Serial TV" />
-          ),
+          tabBarIcon: ({ focused }) => <TabIcon focused={focused} emoji="📺" label="Serial TV" />,
         }}
       />
       <Tabs.Screen
         name="search"
         options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} emoji="👤" label="Profil" />
-          ),
+          tabBarIcon: ({ focused }) => <TabIcon focused={focused} emoji="👤" label="Profil" />,
         }}
       />
     </Tabs>
