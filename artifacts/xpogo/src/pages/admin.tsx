@@ -974,7 +974,7 @@ function BuildTab() {
       <div className="bg-yellow-400/10 border border-yellow-400/20 rounded-xl p-4">
         <p className="text-yellow-400 text-xs font-bold uppercase tracking-widest mb-1">Info Penting</p>
         <p className="text-yellow-200/80 text-sm leading-relaxed">
-          APK sudah tersinkron dengan web hosting <span className="font-bold text-yellow-400">xpogo.web.app</span> (repo TMDB_CLONE).
+          APK sudah tersinkron dengan web hosting <span className="font-bold text-yellow-400">apps-tmdb.web.app</span> (repo TMDB_CLONE).
           Build profile: <span className="font-bold text-yellow-400">preview</span> → output berupa file <span className="font-bold text-yellow-400">.apk</span> yang bisa langsung diinstall.
         </p>
       </div>
@@ -1024,7 +1024,7 @@ function BuildTab() {
             ["Package", "com.xpogo.streaming"],
             ["Profile", "preview"],
             ["Output", "APK (.apk)"],
-            ["Web Domain", "xpogo.web.app"],
+            ["Web Domain", "apps-tmdb.web.app"],
           ].map(([k, v]) => (
             <div key={k}>
               <span className="text-gray-500">{k}: </span>

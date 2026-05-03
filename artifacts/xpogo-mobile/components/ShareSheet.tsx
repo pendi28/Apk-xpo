@@ -13,7 +13,7 @@ const CARD_BG = "#1a2332";
 const GREEN = "#00c853";
 const GRAY = "#8a9bb0";
 
-const WEB_DOMAIN = process.env.EXPO_PUBLIC_WEB_DOMAIN || "xpogo.web.app";
+const WEB_DOMAIN = process.env.EXPO_PUBLIC_WEB_DOMAIN || "apps-tmdb.web.app";
 
 interface Props {
   visible: boolean;
