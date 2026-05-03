@@ -52,14 +52,7 @@
       "expo-font",
       "expo-web-browser",
       "expo-updates",
-      "expo-screen-orientation",
-      [
-        "expo-navigation-bar",
-        {
-          "position": "absolute",
-          "visibility": "visible"
-        }
-      ]
+      "expo-screen-orientation"
     ],
     "experiments": {
       "typedRoutes": true,
@@ -68,9 +61,7 @@
     "extra": {
       "eas": {
         "projectId": "af11294c-dbb9-470b-b105-89d298481d2b"
-      },
-      "tmdbKey": "********************************",
-      "firebaseSecret": "****************************************"
+      }
     },
     "owner": "pendi55"
   }
