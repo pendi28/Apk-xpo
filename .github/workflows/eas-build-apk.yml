@@ -1,4 +1,5 @@
-Name: Build Android APK (EAS)
+name: Build Android APK (EAS)
+
 
 on:
   push:
