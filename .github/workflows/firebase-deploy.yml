@@ -27,17 +27,12 @@ jobs:
           version: 10
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Build web app
-        run: PORT=3000 BASE_PATH=/ NODE_ENV=production pnpm --filter @workspace/xpogo run build
-        env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+        run: pnpm --filter @workspace/xpogo run build
 
       - name: Deploy ke Firebase Hosting
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          channelId: live
-          projectId: apps-tmdb
+        run: pnpm --filter @workspace/xpogo run deploy
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
