@@ -12,7 +12,8 @@ import {
   LogOut, Plus, Trash2, Eye, EyeOff, Save, Lock, Tv,
   Pencil, Search, Check, X, Loader2, ListVideo, Film,
   LayoutList, Server, Palette, MessageSquare, Phone,
-  Megaphone, ChevronRight, Link2, AlignJustify,
+  Megaphone, ChevronRight, Link2, AlignJustify, Smartphone,
+  ExternalLink, Github, Package, RefreshCw, CheckCircle2,
 } from "lucide-react";
 
 const IMG = "https://image.tmdb.org/t/p";
@@ -39,7 +40,7 @@ const BUILTIN = [
   { id: "vidsrcxyz", name: "VidSrc.xyz",            desc: "Server bawaan (vidsrcxyz)", url: "https://vidsrc.xyz/embed/{type}/{id}" },
 ];
 
-type NavTab = "daftar" | "tambah" | "komen" | "server" | "tema" | "kontak";
+type NavTab = "daftar" | "tambah" | "server" | "tema" | "build" | "kontak";
 
 /* ══════════════════════════════════════════════════════════ */
 /*  LOGIN                                                     */
@@ -873,6 +874,170 @@ function TemaTab() {
 }
 
 /* ══════════════════════════════════════════════════════════ */
+/*  BUILD APK TAB                                            */
+/* ══════════════════════════════════════════════════════════ */
+function BuildTab() {
+  const EAS_URL = "https://expo.dev/accounts/pendi55/projects/xpogo-mobile/builds";
+  const GITHUB_ACTIONS_URL = "https://github.com/pendi28/Apk-xpo/actions";
+  const GITHUB_REPO_URL = "https://github.com/pendi28/Apk-xpo";
+  const GITHUB_SECRETS_URL = "https://github.com/pendi28/Apk-xpo/settings/secrets/actions";
+  const EXPO_TOKEN_URL = "https://expo.dev/settings/access-tokens";
+
+  const steps = [
+    {
+      num: "1",
+      title: "Pastikan secrets GitHub sudah diset",
+      desc: "Buka GitHub repo → Settings → Secrets → Actions. Tambahkan 3 secrets:",
+      items: ["EXPO_TOKEN — dari expo.dev/settings/access-tokens", "TMDB_API_KEY — API key TMDB kamu", "FIREBASE_DB_SECRET — Firebase DB secret"],
+      link: GITHUB_SECRETS_URL,
+      linkLabel: "Buka GitHub Secrets",
+    },
+    {
+      num: "2",
+      title: "Connect GitHub di expo.dev",
+      desc: "Buka project xpogo-mobile di expo.dev → tab GitHub → connect ke repo pendi28/Apk-xpo",
+      link: EAS_URL,
+      linkLabel: "Buka expo.dev Project",
+    },
+    {
+      num: "3",
+      title: "Trigger Build",
+      desc: "Setelah connect, klik 'New Build' di expo.dev atau push code ke GitHub — GitHub Actions akan otomatis trigger EAS build.",
+      link: EAS_URL,
+      linkLabel: "Buka Halaman Build",
+    },
+    {
+      num: "4",
+      title: "Download APK",
+      desc: "Setelah build selesai (~5-10 menit), download APK langsung dari expo.dev.",
+      link: EAS_URL,
+      linkLabel: "Lihat Semua Build",
+    },
+  ];
+
+  return (
+    <div className="pb-8 space-y-5">
+      <div>
+        <h2 className="text-yellow-400 text-xl font-black mb-1">Build APK Android</h2>
+        <p className="text-gray-500 text-sm">Build APK via EAS (Expo Application Services) terhubung ke GitHub repo</p>
+      </div>
+
+      {/* Quick Links */}
+      <div className="grid grid-cols-2 gap-3">
+        <a href={EAS_URL} target="_blank" rel="noopener noreferrer"
+          className="flex items-center gap-3 bg-[#1e2535] hover:bg-[#252e42] border border-white/10 rounded-xl p-4 transition-colors group">
+          <div className="w-10 h-10 bg-yellow-400/15 rounded-xl flex items-center justify-center flex-shrink-0">
+            <Package className="w-5 h-5 text-yellow-400" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-white text-sm font-bold">EAS Builds</p>
+            <p className="text-gray-500 text-xs truncate">expo.dev</p>
+          </div>
+          <ExternalLink className="w-4 h-4 text-gray-600 group-hover:text-yellow-400 ml-auto flex-shrink-0 transition-colors" />
+        </a>
+        <a href={GITHUB_ACTIONS_URL} target="_blank" rel="noopener noreferrer"
+          className="flex items-center gap-3 bg-[#1e2535] hover:bg-[#252e42] border border-white/10 rounded-xl p-4 transition-colors group">
+          <div className="w-10 h-10 bg-purple-400/15 rounded-xl flex items-center justify-center flex-shrink-0">
+            <RefreshCw className="w-5 h-5 text-purple-400" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-white text-sm font-bold">GitHub Actions</p>
+            <p className="text-gray-500 text-xs truncate">Auto build on push</p>
+          </div>
+          <ExternalLink className="w-4 h-4 text-gray-600 group-hover:text-purple-400 ml-auto flex-shrink-0 transition-colors" />
+        </a>
+        <a href={GITHUB_REPO_URL} target="_blank" rel="noopener noreferrer"
+          className="flex items-center gap-3 bg-[#1e2535] hover:bg-[#252e42] border border-white/10 rounded-xl p-4 transition-colors group">
+          <div className="w-10 h-10 bg-blue-400/15 rounded-xl flex items-center justify-center flex-shrink-0">
+            <Github className="w-5 h-5 text-blue-400" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-white text-sm font-bold">Repo APK</p>
+            <p className="text-gray-500 text-xs truncate">pendi28/Apk-xpo</p>
+          </div>
+          <ExternalLink className="w-4 h-4 text-gray-600 group-hover:text-blue-400 ml-auto flex-shrink-0 transition-colors" />
+        </a>
+        <a href={EXPO_TOKEN_URL} target="_blank" rel="noopener noreferrer"
+          className="flex items-center gap-3 bg-[#1e2535] hover:bg-[#252e42] border border-white/10 rounded-xl p-4 transition-colors group">
+          <div className="w-10 h-10 bg-green-400/15 rounded-xl flex items-center justify-center flex-shrink-0">
+            <CheckCircle2 className="w-5 h-5 text-green-400" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-white text-sm font-bold">Expo Token</p>
+            <p className="text-gray-500 text-xs truncate">Buat/perbarui token</p>
+          </div>
+          <ExternalLink className="w-4 h-4 text-gray-600 group-hover:text-green-400 ml-auto flex-shrink-0 transition-colors" />
+        </a>
+      </div>
+
+      {/* Info box */}
+      <div className="bg-yellow-400/10 border border-yellow-400/20 rounded-xl p-4">
+        <p className="text-yellow-400 text-xs font-bold uppercase tracking-widest mb-1">Info Penting</p>
+        <p className="text-yellow-200/80 text-sm leading-relaxed">
+          APK sudah tersinkron dengan web hosting <span className="font-bold text-yellow-400">xpogo.web.app</span> (repo TMDB_CLONE).
+          Build profile: <span className="font-bold text-yellow-400">preview</span> → output berupa file <span className="font-bold text-yellow-400">.apk</span> yang bisa langsung diinstall.
+        </p>
+      </div>
+
+      {/* Steps */}
+      <div>
+        <p className="text-white font-bold mb-3">Langkah Setup (sekali saja)</p>
+        <div className="space-y-3">
+          {steps.map((s) => (
+            <div key={s.num} className={`${card} p-4`}>
+              <div className="flex items-start gap-3">
+                <div className="w-7 h-7 bg-yellow-400 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="text-black text-xs font-black">{s.num}</span>
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-white text-sm font-bold mb-1">{s.title}</p>
+                  <p className="text-gray-400 text-xs leading-relaxed mb-2">{s.desc}</p>
+                  {s.items && (
+                    <ul className="mb-2 space-y-1">
+                      {s.items.map((item) => (
+                        <li key={item} className="text-gray-400 text-xs flex items-start gap-1.5">
+                          <span className="text-yellow-400 mt-0.5">•</span>{item}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  <a href={s.link} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-yellow-400 text-xs font-bold hover:text-yellow-300 transition-colors">
+                    {s.linkLabel} <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Build config info */}
+      <div className={`${card} p-4`}>
+        <p className="text-white text-sm font-bold mb-3 flex items-center gap-2">
+          <Smartphone className="w-4 h-4 text-yellow-400" /> Konfigurasi Build
+        </p>
+        <div className="grid grid-cols-2 gap-y-2 gap-x-4 text-xs">
+          {[
+            ["Project ID", "af11294c-dbb9"],
+            ["Owner", "pendi55"],
+            ["Package", "com.xpogo.streaming"],
+            ["Profile", "preview"],
+            ["Output", "APK (.apk)"],
+            ["Web Domain", "xpogo.web.app"],
+          ].map(([k, v]) => (
+            <div key={k}>
+              <span className="text-gray-500">{k}: </span>
+              <span className="text-white font-mono">{v}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ══════════════════════════════════════════════════════════ */
 /*  KOMEN & KONTAK – placeholder                             */
 /* ══════════════════════════════════════════════════════════ */
 function PlaceholderTab({ icon: Icon, title, desc }: { icon: React.ElementType; title: string; desc: string }) {
@@ -896,7 +1061,7 @@ function PlaceholderTab({ icon: Icon, title, desc }: { icon: React.ElementType; 
 const NAV: { id: NavTab; label: string; icon: React.ElementType; special?: boolean }[] = [
   { id: "daftar",  label: "Daftar",  icon: LayoutList   },
   { id: "tambah",  label: "Tambah",  icon: Plus, special: true },
-  { id: "komen",   label: "Komen",   icon: MessageSquare },
+  { id: "build",   label: "Build",   icon: Smartphone   },
   { id: "server",  label: "Server",  icon: Server       },
   { id: "tema",    label: "Tema",    icon: Palette       },
   { id: "kontak",  label: "Kontak",  icon: Phone        },
@@ -942,7 +1107,7 @@ export default function AdminPage() {
       <div className="flex-1 overflow-y-auto px-4 pt-5 pb-28">
         {tab === "daftar"  && <DaftarTab />}
         {tab === "tambah"  && <TambahTab />}
-        {tab === "komen"   && <PlaceholderTab icon={MessageSquare} title="Komentar" desc="Kelola komentar penonton di sini" />}
+        {tab === "build"   && <BuildTab />}
         {tab === "server"  && <ServerTab />}
         {tab === "tema"    && <TemaTab />}
         {tab === "kontak"  && <PlaceholderTab icon={Phone} title="Kontak" desc="Info kontak dan dukungan" />}
