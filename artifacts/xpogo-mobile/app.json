@@ -9,7 +9,7 @@
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "updates": {
-      "url": "https://u.expo.dev/04688b6b-3a93-499e-bdaa-6a510c9d8661"
+      "url": "https://u.expo.dev/af11294c-dbb9-470b-b105-89d298481d2b"
     },
     "runtimeVersion": {
       "policy": "appVersion"
@@ -67,24 +67,11 @@
     },
     "extra": {
       "eas": {
-        "projectId": "04688b6b-3a93-499e-bdaa-6a510c9d8661"
+        "projectId": "af11294c-dbb9-470b-b105-89d298481d2b"
       },
       "tmdbKey": "********************************",
-      "firebaseSecret": "****************************************",
-      "router": {
-        "origin": "https://replit.com/"
-      },
-      "expo-navigation-bar": {
-        "position": "absolute",
-        "visibility": "visible"
-      }
+      "firebaseSecret": "****************************************"
     },
-    "owner": "pendi55",
-    "sdkVersion": "54.0.0",
-    "platforms": [
-      "ios",
-      "android",
-      "web"
-    ]
+    "owner": "pendi55"
   }
 }
