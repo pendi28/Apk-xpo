@@ -28,7 +28,7 @@ jobs:
           version: 10
 
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --no-frozen-lockfile
 
       - name: Kirim OTA Update ke channel preview
         uses: expo/expo-github-action@v8
