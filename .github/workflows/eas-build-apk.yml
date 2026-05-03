@@ -1,4 +1,4 @@
-name: Build Android APK (EAS)
+Name: Build Android APK (EAS)
 
 on:
   push:
@@ -32,9 +32,8 @@ jobs:
         with:
           version: 10
 
-      # PERUBAHAN ADA DI SINI: Menambahkan --recursive
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile --recursive
+        run: pnpm install --no-frozen-lockfile
 
       - name: Setup EAS
         uses: expo/expo-github-action@v8
