@@ -5,6 +5,7 @@ import { tmdb } from "@/lib/tmdb";
 import { fb } from "@/lib/firebase";
 import type { TmdbListResult, TmdbListItem, CustomMovie, TmdbSyncItem, TmdbSyncStatus } from "@/lib/types";
 import ContentRow from "@/components/ContentRow";
+import buildScreenshot from "@assets/Screenshot_2026-05-03-15-04-35-737_com.replit.app_1777791884817.jpg";
 
 const BACKDROP_BASE = "https://image.tmdb.org/t/p/original";
 
@@ -125,6 +126,21 @@ export default function HomePage() {
           </div>
         </section>
       )}
+
+      <section className="mx-auto max-w-7xl px-4 pt-6 sm:px-8">
+        <div className="grid gap-4 rounded-2xl border border-white/10 bg-white/5 p-4 lg:grid-cols-[1.4fr_1fr]">
+          <div className="space-y-3 text-white">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#01b4e4]">Build Status</p>
+            <h2 className="text-2xl font-black">APK build ready for GitHub push</h2>
+            <p className="text-sm text-gray-300">
+              Screenshot progress terakhir menunjukkan push clean ke repo baru sudah sukses.
+            </p>
+          </div>
+          <div className="overflow-hidden rounded-xl border border-white/10 bg-black/30">
+            <img src={buildScreenshot} alt="Git push progress screenshot" className="h-full w-full object-cover" />
+          </div>
+        </div>
+      </section>
 
       <div className="mx-auto max-w-7xl px-4 pb-20 pt-6 sm:px-8">
         <div className="mb-8 grid gap-3 sm:grid-cols-3">
