@@ -33,7 +33,10 @@ jobs:
           version: 10
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+  run: |
+    pnpm install --no-frozen-lockfile
+    cd artifacts/xpogo-mobile
+    pnpm install --no-frozen-lockfile
 
       - name: Setup EAS
         uses: expo/expo-github-action@v8
