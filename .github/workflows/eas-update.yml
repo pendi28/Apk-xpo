@@ -1,0 +1,45 @@
+name: EAS Update (OTA Mobile)
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'artifacts/xpogo-mobile/**'
+      - 'lib/**'
+
+jobs:
+  update:
+    name: OTA Update ke HP
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Kirim OTA Update ke channel preview
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Push update
+        run: |
+          cd artifacts/xpogo-mobile
+          eas update --channel preview --message "Auto update: ${{ github.event.head_commit.message }}" --non-interactive
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}

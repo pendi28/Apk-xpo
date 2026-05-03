@@ -1,0 +1,30 @@
+{
+  "cli": {
+    "version": ">= 12.0.0",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "preview": {
+      "channel": "preview",
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleRelease"
+      },
+      "env": {
+        "EXPO_PUBLIC_TMDB_KEY": "$EXPO_PUBLIC_TMDB_KEY",
+        "EXPO_PUBLIC_FIREBASE_SECRET": "$EXPO_PUBLIC_FIREBASE_SECRET",
+        "EXPO_PUBLIC_WEB_DOMAIN": "xpogo.web.app"
+      }
+    },
+    "production": {
+      "channel": "production",
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "ios": {}
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

@@ -1,0 +1,43 @@
+name: Deploy Web ke Firebase Hosting
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'artifacts/xpogo/**'
+
+jobs:
+  deploy:
+    name: Build & Deploy Web
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build web app
+        run: PORT=3000 BASE_PATH=/ NODE_ENV=production pnpm --filter @workspace/xpogo run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+
+      - name: Deploy ke Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          channelId: live
+          projectId: apps-tmdb

@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "extra": {
+      "eas": {
+        "projectId": "5890dd48-3b5b-4408-b0a9-69561fe97476"
+      }
+    },
+    "android": {
+      "package": "com.pendi55.workspace"
+    }
+  }
+}

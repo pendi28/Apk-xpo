@@ -1,0 +1,66 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": false,
+
+    "settings": {
+      ".read": true,
+      ".write": false,
+      "player": {
+        "server": { ".validate": "newData.isString()" },
+        "domainAd": { ".validate": "newData.isString()" },
+        "color": { ".validate": "newData.isString() && newData.val().length == 6" },
+        "autoplay": { ".validate": "newData.isBoolean()" },
+        "back": { ".validate": "newData.isBoolean()" }
+      },
+      "ui": {
+        "posterSize": { ".validate": "newData.isString()" },
+        "fontSize": { ".validate": "newData.isString()" },
+        "accentColor": { ".validate": "newData.isString()" },
+        "fontColor": { ".validate": "newData.isString()" }
+      }
+    },
+
+    "ads": {
+      ".read": true,
+      ".write": false,
+      "$adId": {
+        ".validate": "newData.hasChildren(['title', 'url', 'active'])",
+        "title": { ".validate": "newData.isString()" },
+        "url": { ".validate": "newData.isString()" },
+        "imageUrl": { ".validate": "newData.isString()" },
+        "active": { ".validate": "newData.isBoolean()" },
+        "position": { ".validate": "newData.isString()" }
+      }
+    },
+
+    "custom_movies": {
+      ".read": true,
+      ".write": false,
+      "$movieId": {
+        ".validate": "newData.hasChildren(['tmdbId', 'type', 'title'])",
+        "tmdbId": { ".validate": "newData.isNumber()" },
+        "type": { ".validate": "newData.isString() && (newData.val() == 'movie' || newData.val() == 'tv')" },
+        "title": { ".validate": "newData.isString()" },
+        "featured": { ".validate": "newData.isBoolean()" },
+        "category": { ".validate": "newData.isString()" }
+      }
+    },
+
+    "categories": {
+      ".read": true,
+      ".write": false,
+      "$catId": {
+        ".validate": "newData.hasChildren(['name'])",
+        "name": { ".validate": "newData.isString()" },
+        "tmdbGenreId": { ".validate": "newData.isNumber()" },
+        "type": { ".validate": "newData.isString()" }
+      }
+    },
+
+    "featured": {
+      ".read": true,
+      ".write": false
+    }
+  }
+}

@@ -1,0 +1,80 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "FQpxZqav8AR2gBjjFlNyv"
+uri = "file://xpogo-firebase.zip"
+type = "unspecified"
+title = "xpogo-firebase.zip — Firebase Hosting + Admin Panel"
+
+[[outputs]]
+id = "D23fPrXfB_im1uLKYayPx"
+uri = "file://xpogo-mobile-v1.1.0.zip"
+type = "unspecified"
+title = "xpogo-mobile-v1.1.0.zip"
+
+[[outputs]]
+id = "624hOJKcWYvpRLhvVZMmk"
+uri = "file://xpogo-termux-build.zip"
+type = "unspecified"
+title = "xpogo-termux-build.zip"
+
+[[outputs]]
+id = "HQpV7562rPbPj6JtRbtAk"
+uri = "file://xpogo-mobile-v1.2.0.zip"
+type = "unspecified"
+title = "XpoGo Mobile v1.2.0 — Layout Fix + Search + Unlock Functions"
+
+[[outputs]]
+id = "XTtIn84hwuaGndDwE1wSe"
+uri = "file://xpogo-termux-build-v1.2.zip"
+type = "unspecified"
+title = "XpoGo Termux Build v1.2 (Full Monorepo)"
+
+[[outputs]]
+id = "22UmVn6P8jiVHSwQniwfO"
+uri = "file://xpogo-mobile-v1.3.0.zip"
+type = "unspecified"
+title = "XpoGo Mobile v1.3.0 — Komentar + Balas + Share Sosial"
+
+[[outputs]]
+id = "UxTCxGYMlYCBZsAoCUYRI"
+uri = "file://xpogo-termux-build-v1.3.zip"
+type = "unspecified"
+title = "XpoGo v1.3 — 2 Workflow Terpisah (Web + App)"
+
+[[outputs]]
+id = "oiMe38LKCvFhe8M44IqxM"
+uri = "file://xpogo-firebase-hosting.zip"
+type = "unspecified"
+title = "XpoGo Firebase Hosting — Siap Deploy"
+
+[[outputs]]
+id = "0Otb36Cm8filUwiAAEsA1"
+uri = "file://xpogo-full-repo-v1.3.zip"
+type = "unspecified"
+title = "XpoGo Full Repo v1.3 — Web + Admin + Mobile + API"
+
+[[outputs]]
+id = "lBGMZN5AEV8mQiAsuCun_"
+uri = "file://xpogo-web-standalone-v1.3.zip"
+type = "unspecified"
+title = "XpoGo Web Standalone v1.3 (Firebase Hosting)"
+
+[[outputs]]
+id = "bv8KZPnfpn3zhlUNyExmI"
+uri = "file://xpogo-web.zip"
+type = "unspecified"
+title = "XpoGo Web — Source Code"
+
+[[outputs]]
+id = "Aww0-sSRh4IlA3TWEu8hY"
+uri = "file://xpogo-web-source.tar.gz"
+type = "unspecified"
+title = "XpoGo Web Source Code (tar.gz)"
+
+[[outputs]]
+id = "M7HrXzFMdUGDFNDJMvWsO"
+uri = "file://xpogo-github-update.tar.gz"
+type = "unspecified"
+title = "File Update GitHub (workflow + configs)"

@@ -1,0 +1,1090 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: XpoGo Streaming API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: tmdb
+    description: TMDB movie and TV data
+  - name: admin
+    description: Admin panel operations
+  - name: settings
+    description: App settings
+  - name: ads
+    description: Ads management
+  - name: movies
+    description: Custom movie lists
+
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+
+  /admin/login:
+    post:
+      operationId: adminLogin
+      tags: [admin]
+      summary: Admin login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdminLoginBody"
+      responses:
+        "200":
+          description: Login success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminLoginResponse"
+        "401":
+          description: Unauthorized
+
+  /admin/verify:
+    get:
+      operationId: adminVerify
+      tags: [admin]
+      summary: Verify admin token
+      responses:
+        "200":
+          description: Valid token
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AdminLoginResponse"
+        "401":
+          description: Unauthorized
+
+  /tmdb/trending:
+    get:
+      operationId: getTrending
+      tags: [tmdb]
+      summary: Get trending movies and TV
+      parameters:
+        - name: media_type
+          in: query
+          schema:
+            type: string
+            default: all
+        - name: time_window
+          in: query
+          schema:
+            type: string
+            default: week
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        "200":
+          description: Trending list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TmdbListResponse"
+
+  /tmdb/popular/movies:
+    get:
+      operationId: getPopularMovies
+      tags: [tmdb]
+      summary: Get popular movies
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        "200":
+          description: Popular movies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TmdbListResponse"
+
+  /tmdb/popular/tv:
+    get:
+      operationId: getPopularTv
+      tags: [tmdb]
+      summary: Get popular TV shows
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        "200":
+          description: Popular TV shows
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TmdbListResponse"
+
+  /tmdb/top-rated/movies:
+    get:
+      operationId: getTopRatedMovies
+      tags: [tmdb]
+      summary: Get top rated movies
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        "200":
+          description: Top rated movies
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TmdbListResponse"
+
+  /tmdb/top-rated/tv:
+    get:
+      operationId: getTopRatedTv
+      tags: [tmdb]
+      summary: Get top rated TV shows
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        "200":
+          description: Top rated TV shows
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TmdbListResponse"
+
+  /tmdb/search:
+    get:
+      operationId: searchTmdb
+      tags: [tmdb]
+      summary: Search movies and TV
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TmdbListResponse"
+
+  /tmdb/movie/{id}:
+    get:
+      operationId: getMovieDetail
+      tags: [tmdb]
+      summary: Get movie detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Movie detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TmdbMovieDetail"
+
+  /tmdb/tv/{id}:
+    get:
+      operationId: getTvDetail
+      tags: [tmdb]
+      summary: Get TV show detail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: TV show detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TmdbTvDetail"
+
+  /tmdb/tv/{id}/season/{season}:
+    get:
+      operationId: getTvSeason
+      tags: [tmdb]
+      summary: Get TV season detail with episodes
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: season
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Season detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TmdbSeasonDetail"
+
+  /tmdb/genres/movies:
+    get:
+      operationId: getMovieGenres
+      tags: [tmdb]
+      summary: Get movie genres
+      responses:
+        "200":
+          description: Movie genres
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenreListResponse"
+
+  /tmdb/genres/tv:
+    get:
+      operationId: getTvGenres
+      tags: [tmdb]
+      summary: Get TV genres
+      responses:
+        "200":
+          description: TV genres
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GenreListResponse"
+
+  /tmdb/genre/{genreId}/movies:
+    get:
+      operationId: getMoviesByGenre
+      tags: [tmdb]
+      summary: Get movies by genre
+      parameters:
+        - name: genreId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: page
+          in: query
+          schema:
+            type: integer
+            default: 1
+      responses:
+        "200":
+          description: Movies by genre
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TmdbListResponse"
+
+  /settings:
+    get:
+      operationId: getSettings
+      tags: [settings]
+      summary: Get app settings from Firebase
+      responses:
+        "200":
+          description: App settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppSettings"
+    put:
+      operationId: updateSettings
+      tags: [settings]
+      summary: Update app settings (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppSettings"
+      responses:
+        "200":
+          description: Updated settings
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AppSettings"
+
+  /ads:
+    get:
+      operationId: getAds
+      tags: [ads]
+      summary: Get all ads
+      responses:
+        "200":
+          description: Ads list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Ad"
+    post:
+      operationId: createAd
+      tags: [ads]
+      summary: Create ad (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdBody"
+      responses:
+        "201":
+          description: Created ad
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ad"
+
+  /ads/{id}:
+    put:
+      operationId: updateAd
+      tags: [ads]
+      summary: Update ad (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AdBody"
+      responses:
+        "200":
+          description: Updated ad
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Ad"
+    delete:
+      operationId: deleteAd
+      tags: [ads]
+      summary: Delete ad (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted
+
+  /custom-movies:
+    get:
+      operationId: getCustomMovies
+      tags: [movies]
+      summary: Get custom movie list from Firebase
+      responses:
+        "200":
+          description: Custom movies
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CustomMovie"
+    post:
+      operationId: createCustomMovie
+      tags: [movies]
+      summary: Add movie to custom list (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomMovieBody"
+      responses:
+        "201":
+          description: Added movie
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomMovie"
+
+  /custom-movies/{id}:
+    delete:
+      operationId: deleteCustomMovie
+      tags: [movies]
+      summary: Remove from custom list (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted
+
+  /embeds:
+    get:
+      operationId: getEmbeds
+      tags: [movies]
+      summary: Get all manual embed entries
+      responses:
+        "200":
+          description: Embed list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmbedEntry"
+    post:
+      operationId: createEmbed
+      tags: [movies]
+      summary: Create manual embed entry (admin only)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmbedEntryBody"
+      responses:
+        "201":
+          description: Created embed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmbedEntry"
+
+  /embeds/{id}:
+    put:
+      operationId: updateEmbed
+      tags: [movies]
+      summary: Update manual embed entry (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmbedEntryBody"
+      responses:
+        "200":
+          description: Updated embed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmbedEntry"
+    delete:
+      operationId: deleteEmbed
+      tags: [movies]
+      summary: Delete manual embed entry (admin only)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Deleted
+
+  /embeds/by-tmdb/{tmdbId}:
+    get:
+      operationId: getEmbedsByTmdbId
+      tags: [movies]
+      summary: Get embed entries by TMDB ID
+      parameters:
+        - name: tmdbId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Embed entries for this title
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmbedEntry"
+
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+
+    AdminLoginBody:
+      type: object
+      properties:
+        password:
+          type: string
+      required:
+        - password
+
+    AdminLoginResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        token:
+          type: string
+      required:
+        - success
+        - token
+
+    TmdbItem:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: ["string", "null"]
+        name:
+          type: ["string", "null"]
+        overview:
+          type: string
+        poster_path:
+          type: ["string", "null"]
+        backdrop_path:
+          type: ["string", "null"]
+        vote_average:
+          type: number
+        vote_count:
+          type: integer
+        release_date:
+          type: ["string", "null"]
+        first_air_date:
+          type: ["string", "null"]
+        media_type:
+          type: ["string", "null"]
+        genre_ids:
+          type: array
+          items:
+            type: integer
+        popularity:
+          type: number
+      required:
+        - id
+        - overview
+        - vote_average
+        - vote_count
+        - popularity
+
+    TmdbListResponse:
+      type: object
+      properties:
+        page:
+          type: integer
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/TmdbItem"
+        total_pages:
+          type: integer
+        total_results:
+          type: integer
+      required:
+        - page
+        - results
+        - total_pages
+        - total_results
+
+    Genre:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+      required:
+        - id
+        - name
+
+    GenreListResponse:
+      type: object
+      properties:
+        genres:
+          type: array
+          items:
+            $ref: "#/components/schemas/Genre"
+      required:
+        - genres
+
+    TmdbMovieDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        overview:
+          type: string
+        poster_path:
+          type: ["string", "null"]
+        backdrop_path:
+          type: ["string", "null"]
+        vote_average:
+          type: number
+        vote_count:
+          type: integer
+        release_date:
+          type: string
+        runtime:
+          type: ["integer", "null"]
+        genres:
+          type: array
+          items:
+            $ref: "#/components/schemas/Genre"
+        status:
+          type: string
+        tagline:
+          type: ["string", "null"]
+        homepage:
+          type: ["string", "null"]
+        imdb_id:
+          type: ["string", "null"]
+        videos:
+          type: object
+          properties:
+            results:
+              type: array
+              items:
+                type: object
+        credits:
+          type: object
+          properties:
+            cast:
+              type: array
+              items:
+                type: object
+            crew:
+              type: array
+              items:
+                type: object
+        similar:
+          $ref: "#/components/schemas/TmdbListResponse"
+        recommendations:
+          $ref: "#/components/schemas/TmdbListResponse"
+      required:
+        - id
+        - title
+        - overview
+        - vote_average
+        - vote_count
+        - release_date
+        - genres
+        - status
+
+    TmdbEpisode:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        overview:
+          type: string
+        episode_number:
+          type: integer
+        season_number:
+          type: integer
+        still_path:
+          type: ["string", "null"]
+        air_date:
+          type: ["string", "null"]
+        vote_average:
+          type: number
+        runtime:
+          type: ["integer", "null"]
+      required:
+        - id
+        - name
+        - overview
+        - episode_number
+        - season_number
+        - vote_average
+
+    TmdbSeasonDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        overview:
+          type: string
+        season_number:
+          type: integer
+        episode_count:
+          type: integer
+        air_date:
+          type: ["string", "null"]
+        poster_path:
+          type: ["string", "null"]
+        episodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/TmdbEpisode"
+      required:
+        - id
+        - name
+        - overview
+        - season_number
+        - episode_count
+        - episodes
+
+    TmdbTvDetail:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        overview:
+          type: string
+        poster_path:
+          type: ["string", "null"]
+        backdrop_path:
+          type: ["string", "null"]
+        vote_average:
+          type: number
+        vote_count:
+          type: integer
+        first_air_date:
+          type: string
+        last_air_date:
+          type: ["string", "null"]
+        number_of_seasons:
+          type: integer
+        number_of_episodes:
+          type: integer
+        genres:
+          type: array
+          items:
+            $ref: "#/components/schemas/Genre"
+        seasons:
+          type: array
+          items:
+            type: object
+        status:
+          type: string
+        tagline:
+          type: ["string", "null"]
+        homepage:
+          type: ["string", "null"]
+        videos:
+          type: object
+          properties:
+            results:
+              type: array
+              items:
+                type: object
+        credits:
+          type: object
+          properties:
+            cast:
+              type: array
+              items:
+                type: object
+            crew:
+              type: array
+              items:
+                type: object
+        similar:
+          $ref: "#/components/schemas/TmdbListResponse"
+        recommendations:
+          $ref: "#/components/schemas/TmdbListResponse"
+      required:
+        - id
+        - name
+        - overview
+        - vote_average
+        - vote_count
+        - first_air_date
+        - number_of_seasons
+        - number_of_episodes
+        - genres
+        - status
+
+    PlayerSettings:
+      type: object
+      properties:
+        server:
+          type: string
+        domainAd:
+          type: string
+        color:
+          type: string
+        autoplay:
+          type: boolean
+        back:
+          type: boolean
+      required:
+        - server
+        - domainAd
+        - color
+        - autoplay
+        - back
+
+    UiSettings:
+      type: object
+      properties:
+        posterSize:
+          type: string
+        fontSize:
+          type: string
+        accentColor:
+          type: string
+        fontColor:
+          type: string
+      required:
+        - posterSize
+        - fontSize
+        - accentColor
+        - fontColor
+
+    AppSettings:
+      type: object
+      properties:
+        player:
+          $ref: "#/components/schemas/PlayerSettings"
+        ui:
+          $ref: "#/components/schemas/UiSettings"
+      required:
+        - player
+        - ui
+
+    Ad:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        url:
+          type: string
+        imageUrl:
+          type: string
+        active:
+          type: boolean
+        position:
+          type: string
+      required:
+        - id
+        - title
+        - url
+        - imageUrl
+        - active
+        - position
+
+    AdBody:
+      type: object
+      properties:
+        title:
+          type: string
+        url:
+          type: string
+        imageUrl:
+          type: string
+        active:
+          type: boolean
+        position:
+          type: string
+      required:
+        - title
+        - url
+        - imageUrl
+        - active
+        - position
+
+    CustomMovie:
+      type: object
+      properties:
+        id:
+          type: string
+        tmdbId:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        posterPath:
+          type: string
+        featured:
+          type: boolean
+        category:
+          type: string
+      required:
+        - id
+        - tmdbId
+        - type
+        - title
+        - posterPath
+        - featured
+        - category
+
+    CustomMovieBody:
+      type: object
+      properties:
+        tmdbId:
+          type: integer
+        type:
+          type: string
+        title:
+          type: string
+        posterPath:
+          type: string
+        featured:
+          type: boolean
+        category:
+          type: string
+      required:
+        - tmdbId
+        - type
+        - title
+        - posterPath
+        - featured
+        - category
+
+    EmbedEpisode:
+      type: object
+      properties:
+        episode:
+          type: integer
+        url:
+          type: string
+        sub:
+          type: string
+      required:
+        - episode
+        - url
+        - sub
+
+    EmbedSeason:
+      type: object
+      properties:
+        season:
+          type: integer
+        episodes:
+          type: array
+          items:
+            $ref: "#/components/schemas/EmbedEpisode"
+      required:
+        - season
+        - episodes
+
+    EmbedEntry:
+      type: object
+      properties:
+        id:
+          type: string
+        tmdbId:
+          type: integer
+        type:
+          type: string
+          description: "movie or series"
+        title:
+          type: string
+        posterPath:
+          type: ["string", "null"]
+        sub:
+          type: string
+          description: "Subtitle language e.g. Sub Indo, Sub English, Dub"
+        url:
+          type: ["string", "null"]
+          description: "Full embed URL for movie"
+        seasons:
+          type: array
+          items:
+            $ref: "#/components/schemas/EmbedSeason"
+          description: "For series: list of seasons with episodes"
+        active:
+          type: boolean
+        createdAt:
+          type: string
+      required:
+        - id
+        - tmdbId
+        - type
+        - title
+        - sub
+        - active
+        - createdAt
+
+    EmbedEntryBody:
+      type: object
+      properties:
+        tmdbId:
+          type: integer
+        type:
+          type: string
+          description: "movie or series"
+        title:
+          type: string
+        posterPath:
+          type: ["string", "null"]
+        sub:
+          type: string
+          description: "Subtitle language e.g. Sub Indo, Sub English, Dub"
+        url:
+          type: ["string", "null"]
+          description: "Full embed URL for movie"
+        seasons:
+          type: array
+          items:
+            $ref: "#/components/schemas/EmbedSeason"
+          description: "For series: list of seasons with episodes"
+        active:
+          type: boolean
+      required:
+        - tmdbId
+        - type
+        - title
+        - sub
+        - active
