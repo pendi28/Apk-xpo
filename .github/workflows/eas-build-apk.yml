@@ -1,4 +1,4 @@
-name: Build Android APK (EAS)
+name: Build Android APK (Local)
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build APK Android
+    name: Build APK di GitHub Runner
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -20,6 +20,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -32,18 +38,22 @@ jobs:
       - name: Setup EAS
         uses: expo/expo-github-action@v8
         with:
-          expo-version: latest
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
-      - name: Build APK via EAS
+      - name: Build APK lokal (tidak pakai kuota EAS)
         run: |
           cd artifacts/xpogo-mobile
-          eas build --platform android --profile preview --non-interactive --no-wait
+          eas build --local --platform android --profile preview --non-interactive --output ./XpoGo.apk
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
           EXPO_PUBLIC_TMDB_KEY: ${{ secrets.TMDB_API_KEY }}
           EXPO_PUBLIC_FIREBASE_SECRET: ${{ secrets.FIREBASE_DB_SECRET }}
+          EXPO_PUBLIC_WEB_DOMAIN: apps-tmdb.web.app
 
-      - name: Info build
-        run: echo "Build submitted. Download at https://expo.dev/accounts/pendi55/projects/xpogo-mobile/builds"
+      - name: Upload APK ke GitHub Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: XpoGo-APK
+          path: artifacts/xpogo-mobile/XpoGo.apk
+          retention-days: 30
