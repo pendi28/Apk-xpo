@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: Kirim OTA Update ke channel preview
+      - name: Setup EAS
         uses: expo/expo-github-action@v8
         with:
           expo-version: latest
@@ -43,3 +43,5 @@ jobs:
           eas update --channel preview --message "Auto update: ${{ github.event.head_commit.message }}" --non-interactive
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          EXPO_PUBLIC_TMDB_KEY: ${{ secrets.TMDB_API_KEY }}
+          EXPO_PUBLIC_FIREBASE_SECRET: ${{ secrets.FIREBASE_DB_SECRET }}
