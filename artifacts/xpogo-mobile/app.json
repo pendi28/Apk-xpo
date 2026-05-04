@@ -52,7 +52,14 @@
       "expo-font",
       "expo-web-browser",
       "expo-updates",
-      "expo-screen-orientation"
+      "expo-screen-orientation",
+      [
+        "expo-navigation-bar",
+        {
+          "position": "absolute",
+          "visibility": "visible"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
