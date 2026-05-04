@@ -1,4 +1,4 @@
-name: Build Android APK (Local)
+name: Build Android APK (Gradle, Tanpa EAS)
 
 on:
   workflow_dispatch:
@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    name: Build APK di GitHub Runner
+    name: Build APK Gratis via Gradle
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -35,6 +35,32 @@ jobs:
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
+      - name: Expo Prebuild Android
+        run: |
+          cd artifacts/xpogo-mobile
+          npx expo prebuild --platform android --non-interactive
+        env:
+          EXPO_PUBLIC_TMDB_KEY: ${{ secrets.TMDB_API_KEY }}
+          EXPO_PUBLIC_FIREBASE_SECRET: ${{ secrets.FIREBASE_DB_SECRET }}
+          EXPO_PUBLIC_WEB_DOMAIN: apps-tmdb.web.app
+
+      - name: Make gradlew executable
+        run: chmod +x artifacts/xpogo-mobile/android/gradlew
+
+      - name: Build APK Release
+        run: |
+          cd artifacts/xpogo-mobile/android
+          ./gradlew assembleRelease --no-daemon
+        env:
+          EXPO_PUBLIC_TMDB_KEY: ${{ secrets.TMDB_API_KEY }}
+          EXPO_PUBLIC_FIREBASE_SECRET: ${{ secrets.FIREBASE_DB_SECRET }}
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: XpoGo-APK
+          path: artifacts/xpogo-mobile/android/app/build/outputs/apk/release/app-release.apk
+          retention-days: 30
       - name: Setup EAS
         uses: expo/expo-github-action@v8
         with:
