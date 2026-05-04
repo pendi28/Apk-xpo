@@ -58,7 +58,8 @@
   },
   "dependencies": {
     "expo-clipboard": "^8.0.8",
-    "expo-file-system": "^19.0.22", 
+    "expo-file-system": "^19.0.22",
+    "expo-navigation-bar": "^0.10.0",
     "expo-screen-orientation": "^9.0.9",
     "expo-sharing": "^14.0.8",
     "expo-updates": "^29.0.17",
