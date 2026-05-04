@@ -7,8 +7,7 @@
     "preview": {
       "channel": "preview",
       "android": {
-        "buildType": "apk",
-        "gradleCommand": ":app:assembleRelease"
+        "buildType": "apk"
       },
       "env": {
         "EXPO_PUBLIC_TMDB_KEY": "$EXPO_PUBLIC_TMDB_KEY",
@@ -20,8 +19,7 @@
       "channel": "production",
       "android": {
         "buildType": "app-bundle"
-      },
-      "ios": {}
+      }
     }
   },
   "submit": {
