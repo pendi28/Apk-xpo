@@ -7,7 +7,6 @@ on:
       - master
     paths:
       - 'artifacts/xpogo-mobile/**'
-      - 'lib/**'
 
 jobs:
   update:
@@ -37,7 +36,7 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
-      - name: Push update
+      - name: Push OTA Update
         run: |
           cd artifacts/xpogo-mobile
           eas update --channel preview --message "Auto update: ${{ github.event.head_commit.message }}" --non-interactive
