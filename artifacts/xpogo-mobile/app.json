@@ -9,7 +9,7 @@
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
     "updates": {
-      "url": "https://u.expo.dev/34e37e6d-459e-4224-aee9-e05cc5dcb2e9"
+      "url": "https://u.expo.dev/d55b2313-47eb-45e1-885b-fe540253720a"
     },
     "runtimeVersion": {
       "policy": "appVersion"
@@ -67,7 +67,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "34e37e6d-459e-4224-aee9-e05cc5dcb2e9"
+        "projectId": "d55b2313-47eb-45e1-885b-fe540253720a"
       }
     },
     "owner": "pendi28"
